@@ -2,7 +2,13 @@ class LibrariesController < ApplicationController
   # GET /libraries
   # GET /libraries.json
   def index
-    @libraries = Library.all
+    libraries = Library
+    if params[:search]
+      # This do this regex in MySQL: /.*#{params[:search]}.*/ (Anything name containing the given string)
+      libraries = libraries.where("name LIKE ?", "%#{params[:search]}%")
+    end
+    @libraries = libraries.all
+
     @libraries_markers = @libraries.to_gmaps4rails do |library, marker|
       # This will control the infowindow (Box displayed when you click on a marker) HTML
       marker.infowindow render_to_string(:partial => "/libraries/info_window", :locals => { :library => library})
