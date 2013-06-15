@@ -1,0 +1,26 @@
+<div class="row-fluid">
+  <div class="span12">
+    <h1>All the Libraries</h1>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="span5">
+    <% @libraries.each do |library| %>
+      <div class="library">
+        <h5><%= library.name %></h5>
+        <span class="address"><%= library.address %></span>
+        <span><%= link_to 'Edit', edit_library_path(library) %></span>
+        <span><%= link_to 'Destroy', library, method: :delete, data: { confirm: 'Are you sure?' } %></span>
+      </div>
+    <% end %>
+  </div>
+  <div class="span7">
+    <%= gmaps(
+      "markers" => {"data" => @libraries_markers},
+      "map_options" => { "type" => "HYBRID", "zoom" => 5},
+    ) %>
+  </div>
+</div>
+
+<%= link_to 'Add Library', new_library_path %>

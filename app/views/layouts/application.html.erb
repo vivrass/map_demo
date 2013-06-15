@@ -8,7 +8,20 @@
 </head>
 <body>
 
-<%= yield %>
+  <div id="main">
+    <div class="navbar">
+      <div class=".navbar-inner">
+        <div class="container">
+          <%= render "layouts/menu" %>
+        </div>
+      </div>
+    </div>
 
+    <div id="container" class="container-fluid">
+      <%= yield %>
+    </div>
+  </div>
+
+  <%= yield :scripts %>
 </body>
 </html>
